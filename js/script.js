@@ -35,6 +35,11 @@ function initGame(){
   buttonStart.classList.add('hide');
   //richiamo qui il Game area Generator
   gameAreaGenerator();
+  setTimeout(timerPrompt, 5000);
+}
+
+function timerPrompt(){
+  console.log('ciaone!');
 }
 
 
@@ -60,17 +65,14 @@ function cardPrinter(elementHtml){
 
   //richiamo qui la funz genera num random
   randomN = uniqueRandomNum( LIMIT, MAX );
-
   
   for( let i = 0; i< randomN.length ; i++ ){
 
     //richiamo qui la funz crea card
     cardElement = cardGenerator(elementHtml);
+
     cardContainer.push(cardElement);
     cardElement.innerHTML = `<span>${randomN[i]}</span>`;
-    console.log(randomN[i]);
-
-
 
   }
 
