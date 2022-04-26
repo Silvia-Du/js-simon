@@ -27,6 +27,7 @@ const MIN = 1;
 const MAX = 15;
 let cardContainer = [];
 let randomNumContainer =[];
+let userNumbers = [];
 
 buttonStart.addEventListener('click', initGame);
 
@@ -38,8 +39,25 @@ function initGame(){
   setTimeout(timerPrompt, 5000);
 }
 
+
+//TIMING FUNCION CON PROMPT
 function timerPrompt(){
-  console.log('ciaone!');
+  for(let i = 0; i< LIMIT; i++){
+    let checkNum = false;
+
+    while(!checkNum){
+      const userN = parseInt(prompt('inserisci un numero'));
+      if(!userNumbers.includes(userN)){
+        userNumbers.push(userN);
+        checkNum = true;
+      }else{
+        alert('inserisci un numero differente!')
+      }
+    }
+
+  }
+  console.log('numeri utente', userNumbers);
+
 }
 
 
