@@ -21,7 +21,7 @@ Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei num
 //un pulsante che chiede se si vuole ripartire.
 
 const buttonStart = document.getElementById('btn-start');
-const container = document.querySelector('.game');
+const container = document.querySelector('.game-space');
 const LIMIT = 5;
 const MIN = 1;
 const MAX = 15;
@@ -31,8 +31,14 @@ let userNumbers = [];
 
 buttonStart.addEventListener('click', initGame);
 
+
+//FUNZIONE DI INIZIO GIOCO
 function initGame(){
 
+  container.innerHTML = '';
+  randomNumContainer =[];
+  userNumbers = [];
+  
   buttonStart.classList.add('hide');
   //richiamo qui il Game area Generator
   gameAreaGenerator();
@@ -61,16 +67,33 @@ function timerPrompt(){
 
   }
   console.log('numeri utente', userNumbers);
+  
+  console.log(randomNumContainer, 'eccoci');
+
+  //richiamo qui la funz di fine gioco
+  endGameAction(userNumbers, randomNumContainer);
 
   return userNumbers;
 
 }
 
-// function endGame(parametro1, parametro2){
 
-//   if()
+//funzione di FINE GIOCO
+function  endGameAction(container1, container2){
 
-// }
+  let counter = 0;
+
+  for( let i = 0; i< container2.length; i++ ){
+    if(container1.includes(container2[i])){
+      counter ++;
+      console.log(counter);
+    }
+  }
+
+  creaLayover( counter);
+
+}
+
 
 
 //GAME AREA GENERATOR
@@ -87,7 +110,7 @@ function gameAreaGenerator(){
 
 }
 
-//CARD PRINTER
+//CARD PRINTER ---------------------
 function cardPrinter(elementHtml){
   let cardElement;
   let randomN;
@@ -108,7 +131,7 @@ function cardPrinter(elementHtml){
 
   setTimeout(timerPrompt, 5000);
   console.log(cardContainer);
-
+  
 }
 
 
@@ -149,12 +172,39 @@ function cardGenerator(elementHtml){
       }
     
     }
-    console.log('numeri delle card',randomNumContainer);
+    console.log('numeri random',randomNumContainer);
 
     return randomNumContainer;
   
   }
 
+
+  //funzioe crea layover
+  function creaLayover( parametroN ){
+
+    const layOver = document.createElement('div');
+    layOver.className = 'output-area';
+    container.append(layOver);
+  
+    if(parametroN !== LIMIT){
+      layOver.innerHTML = `<h3>Hai indovinato  ${parametroN}  carte!</h3> <button type="button" id="btn-again" class="btn btn-warning text-uppercase mb-4">Ritenta!</button>`;
+
+      const buttonNewGame = document.getElementById('btn-again');
+      buttonNewGame.addEventListener('click', function(){
+        container.innerHTML = '';
+        buttonStart.classList.remove('hide');
+      })
+
+    }else{
+      layOver.innerHTML = `<h3>bravo hai indovinato tutte le carte!</h3> `;
+    }
+    
+  //  console.log(buttonNewGame, 'bottone!');
+
+    return layOver;
+  }
+
+ 
 
 
 

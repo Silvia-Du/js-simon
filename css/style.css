@@ -43,3 +43,11 @@
 .hide{
   display: none;
 }
+
+.output-area{
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px 0;
+  background-color: rgba(210, 105, 30, 0.753);
+  border-radius: 20px;
+}
