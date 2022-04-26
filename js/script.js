@@ -59,16 +59,16 @@ function cardPrinter(elementHtml){
   console.log();
 
   //richiamo qui la funz genera num random
-  uniqueRandomNum( LIMIT, MAX );
+  randomN = uniqueRandomNum( LIMIT, MAX );
 
   
-  for(let i = 0; i< LIMIT ; i++){
-
+  for( let i = 0; i< randomN.length ; i++ ){
 
     //richiamo qui la funz crea card
     cardElement = cardGenerator(elementHtml);
     cardContainer.push(cardElement);
-
+    cardElement.innerHTML = `<span>${randomN[i]}</span>`;
+    console.log(randomN[i]);
 
 
 
