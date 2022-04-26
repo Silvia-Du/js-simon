@@ -36,7 +36,6 @@ function initGame(){
   buttonStart.classList.add('hide');
   //richiamo qui il Game area Generator
   gameAreaGenerator();
-  setTimeout(timerPrompt, 5000);
 }
 
 
@@ -46,19 +45,32 @@ function timerPrompt(){
     let checkNum = false;
 
     while(!checkNum){
-      const userN = parseInt(prompt('inserisci un numero'));
-      if(!userNumbers.includes(userN)){
+      const userN = parseInt(prompt(`inserisci il ${i + 1}° numero`).trim());
+
+      if(userNumbers.includes(userN)){
+        alert('inserisci un numero differente!');
+      }else if(isNaN(userN)){
+        alert('inserisci un numero non lettere!');
+      }else if(userN < 1 || userN > MAX ){
+        alert(`inserisci un numero tra 1 e ${MAX}`)
+      }else{
         userNumbers.push(userN);
         checkNum = true;
-      }else{
-        alert('inserisci un numero differente!')
       }
     }
 
   }
   console.log('numeri utente', userNumbers);
 
+  return userNumbers;
+
 }
+
+// function endGame(parametro1, parametro2){
+
+//   if()
+
+// }
 
 
 //GAME AREA GENERATOR
@@ -94,6 +106,7 @@ function cardPrinter(elementHtml){
 
   }
 
+  setTimeout(timerPrompt, 5000);
   console.log(cardContainer);
 
 }
@@ -136,7 +149,7 @@ function cardGenerator(elementHtml){
       }
     
     }
-    console.log(randomNumContainer);
+    console.log('numeri delle card',randomNumContainer);
 
     return randomNumContainer;
   
