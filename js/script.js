@@ -23,7 +23,10 @@ Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei num
 const buttonStart = document.getElementById('btn-start');
 const container = document.querySelector('.game');
 const LIMIT = 5;
+const MIN = 1;
+const MAX = 15;
 let cardContainer = [];
+let randomNumContainer =[];
 
 buttonStart.addEventListener('click', initGame);
 
@@ -45,7 +48,6 @@ function gameAreaGenerator(){
   //richiamo qui il card Generator
   cardPrinter(gameArea);
  
-
   return gameArea;
 
 }
@@ -53,6 +55,12 @@ function gameAreaGenerator(){
 //CARD PRINTER
 function cardPrinter(elementHtml){
   let cardElement;
+  let randomN;
+  console.log();
+
+  //richiamo qui la funz genera num random
+  uniqueRandomNum( LIMIT, MAX );
+
   
   for(let i = 0; i< LIMIT ; i++){
 
@@ -60,6 +68,9 @@ function cardPrinter(elementHtml){
     //richiamo qui la funz crea card
     cardElement = cardGenerator(elementHtml);
     cardContainer.push(cardElement);
+
+
+
 
   }
 
@@ -77,5 +88,41 @@ function cardGenerator(elementHtml){
 
   return card;
 }
+
+
+//generatore di numeri random
+
+  function randomNum( min , max ){
+    return Math.floor(Math.random() * (max - min +1) + min);
+  }
+
+//genera numero univoco
+  function uniqueRandomNum( LIMIT, MAX ){
+
+    let estractNumber;
+    let selected;
+  
+    for( let i = 0; i< LIMIT; i++ ){
+      let check = false;
+    
+      while(!check){
+        estractNumber = randomNum(1, MAX);
+  
+        if(!randomNumContainer.includes(estractNumber)){
+          check = true;
+          randomNumContainer.push(estractNumber);
+          selected = estractNumber;
+        }
+      }
+    
+    }
+    console.log(randomNumContainer);
+
+    return randomNumContainer;
+  
+  }
+
+
+
 
 
