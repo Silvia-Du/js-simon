@@ -22,21 +22,60 @@ Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei num
 
 const buttonStart = document.getElementById('btn-start');
 const container = document.querySelector('.game');
-
+const LIMIT = 5;
+let cardContainer = [];
 
 buttonStart.addEventListener('click', initGame);
 
 function initGame(){
 
   buttonStart.classList.add('hide');
+  //richiamo qui il Game area Generator
   gameAreaGenerator();
 }
 
+
+//GAME AREA GENERATOR
 function gameAreaGenerator(){
+
   const gameArea = document.createElement('div');
   gameArea.className = 'game-area';
   container.append(gameArea);
 
+  //richiamo qui il card Generator
+  cardPrinter(gameArea);
+ 
+
   return gameArea;
 
 }
+
+//CARD PRINTER
+function cardPrinter(elementHtml){
+  let cardElement;
+  
+  for(let i = 0; i< LIMIT ; i++){
+
+
+    //richiamo qui la funz crea card
+    cardElement = cardGenerator(elementHtml);
+    cardContainer.push(cardElement);
+
+  }
+
+  console.log(cardContainer);
+
+}
+
+
+//CARD GENERATOR
+function cardGenerator(elementHtml){
+
+  const card = document.createElement('div');
+  card.className = 'card';
+  elementHtml.append(card);
+
+  return card;
+}
+
+
