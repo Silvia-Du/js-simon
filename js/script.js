@@ -22,12 +22,16 @@ Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei num
 
 const buttonStart = document.getElementById('btn-start');
 const container = document.querySelector('.game-space');
+
+const cardContainer = document.getElementsByClassName('card');
+
 const LIMIT = 5;
 const MIN = 1;
 const MAX = 15;
-let cardContainer = [];
+
 let randomNumContainer =[];
 let userNumbers = [];
+let cardID;
 
 buttonStart.addEventListener('click', initGame);
 
@@ -71,7 +75,7 @@ function timerPrompt(){
   console.log(randomNumContainer, 'eccoci');
 
   //richiamo qui la funz di fine gioco
-  endGameAction(userNumbers, randomNumContainer);
+  endGameAction(userNumbers);
 
   return userNumbers;
 
@@ -79,17 +83,19 @@ function timerPrompt(){
 
 
 //funzione di FINE GIOCO
-function  endGameAction(container1, container2){
+function  endGameAction(userNumbers){
 
   let counter = 0;
 
-  for( let i = 0; i< container2.length; i++ ){
-    if(container1.includes(container2[i])){
-      counter ++;
-      console.log(counter);
-    }
-  }
+  for( let i = 0; i< cardContainer.length; i++ ){
 
+    if(userNumbers.includes(cardID)){
+      cardContainer[i].classList.add('in-evidence');
+      counter++;
+    }
+    
+  }
+  //richiamo qui la funzione che cìgenera il layover di fine
   creaLayover( counter);
 
 }
@@ -112,9 +118,8 @@ function gameAreaGenerator(){
 
 //CARD PRINTER ---------------------
 function cardPrinter(elementHtml){
-  let cardElement;
   let randomN;
-  console.log();
+  let cardElement;
 
   //richiamo qui la funz genera num random
   randomN = uniqueRandomNum( LIMIT, MAX );
@@ -123,14 +128,14 @@ function cardPrinter(elementHtml){
 
     //richiamo qui la funz crea card
     cardElement = cardGenerator(elementHtml);
-
-    cardContainer.push(cardElement);
     cardElement.innerHTML = `<span>${randomN[i]}</span>`;
-
+    cardID = parseInt(cardElement.innerText);
+    console.log(cardID, 'span della card');
+    
   }
 
   setTimeout(timerPrompt, 5000);
-  console.log(cardContainer);
+  console.log('array card',cardContainer);
   
 }
 

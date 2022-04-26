@@ -44,6 +44,10 @@
   display: none;
 }
 
+.in-evidence{
+  background-color: aquamarine;
+}
+
 .output-area{
   width: 80%;
   margin: 20px auto;
