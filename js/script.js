@@ -20,4 +20,23 @@ Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei num
 //esce una scritta con la quantità dei numeri corrispondenti indovinati + 
 //un pulsante che chiede se si vuole ripartire.
 
+const buttonStart = document.getElementById('btn-start');
+const container = document.querySelector('.game');
 
+
+buttonStart.addEventListener('click', initGame);
+
+function initGame(){
+
+  buttonStart.classList.add('hide');
+  gameAreaGenerator();
+}
+
+function gameAreaGenerator(){
+  const gameArea = document.createElement('div');
+  gameArea.className = 'game-area';
+  container.append(gameArea);
+
+  return gameArea;
+
+}

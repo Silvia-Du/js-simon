@@ -38,3 +38,7 @@
   background-color: aliceblue;
   margin: 20px 30px;
 }
+
+.hide{
+  display: none;
+}
