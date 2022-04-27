@@ -22,7 +22,6 @@ Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei num
 
 const buttonStart = document.getElementById('btn-start');
 const container = document.querySelector('.game-space');
-
 const cardContainer = document.getElementsByClassName('card');
 
 const LIMIT = 5;
@@ -33,8 +32,10 @@ let randomNumContainer =[];
 let userNumbers = [];
 let cardID;
 
-buttonStart.addEventListener('click', initGame);
+layOverGenerator();
 
+
+buttonStart.addEventListener('click', initGame);
 
 //FUNZIONE DI INIZIO GIOCO
 function initGame(){
@@ -51,6 +52,9 @@ function initGame(){
 
 //TIMING FUNCION CON PROMPT
 function timerPrompt(){
+
+
+
   for(let i = 0; i< LIMIT; i++){
     let checkNum = false;
 
@@ -87,11 +91,14 @@ function  endGameAction(userNumbers){
 
   let counter = 0;
 
-  for( let i = 0; i< cardContainer.length; i++ ){
+  for( let i = 0; i< randomNumContainer.length; i++ ){
 
-    if(userNumbers.includes(cardID)){
-      cardContainer[i].classList.add('in-evidence');
+    if(userNumbers.includes(randomNumContainer[i])){
       counter++;
+      console.log('counter', counter);
+      //
+      //
+      //
     }
     
   }
@@ -128,6 +135,7 @@ function cardPrinter(elementHtml){
 
     //richiamo qui la funz crea card
     cardElement = cardGenerator(elementHtml);
+
     cardElement.innerHTML = `<span>${randomN[i]}</span>`;
     cardID = parseInt(cardElement.innerText);
     console.log(cardID, 'span della card');
@@ -195,6 +203,7 @@ function cardGenerator(elementHtml){
       layOver.innerHTML = `<h3>Hai indovinato  ${parametroN}  carte!</h3> <button type="button" id="btn-again" class="btn btn-warning text-uppercase mb-4">Ritenta!</button>`;
 
       const buttonNewGame = document.getElementById('btn-again');
+
       buttonNewGame.addEventListener('click', function(){
         container.innerHTML = '';
         buttonStart.classList.remove('hide');
@@ -207,6 +216,20 @@ function cardGenerator(elementHtml){
   //  console.log(buttonNewGame, 'bottone!');
 
     return layOver;
+  }
+
+
+  function layOverGenerator(){
+
+    const rule = document.createElement('div');
+    rule.className = 'layover_game-rule';
+    container.append(rule);
+    const message = `<h2> Le regole del gioco: </h2><h4>Ti verranno mostrate ${LIMIT} carte, hai 4 secondi per ricordarle!</h4>`
+    rule.innerHTML = message;
+
+    setTimeout(() => {
+      rule.classList.add('hide');
+    }, 6000);
   }
 
  
