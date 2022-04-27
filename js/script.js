@@ -1,10 +1,3 @@
-/*
-**Descrizione:**
-Visualizzare in pagina 5 numeri casuali. Da lì parte un timer di 5 secondi.
-Dopo 5 secondi l’utente deve inserire, uno alla volta, i numeri che ha visto precedentemente, tramite il prompt().
-Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei numeri da indovinare sono stati individuati.
-*/
-
 //creo in js l'area gioco e le card al premersi del pulsante
 
 //prompt deve partire dopo 5 secondi
@@ -30,6 +23,7 @@ const MAX = 15;
 
 let randomNumContainer =[];
 let userNumbers = [];
+let cardElement;
 let cardID;
 
 layOverGenerator();
@@ -53,8 +47,6 @@ function initGame(){
 //TIMING FUNCION CON PROMPT
 function timerPrompt(){
 
-
-
   for(let i = 0; i< LIMIT; i++){
     let checkNum = false;
 
@@ -74,15 +66,34 @@ function timerPrompt(){
     }
 
   }
-  console.log('numeri utente', userNumbers);
-  
-  console.log(randomNumContainer, 'eccoci');
+
+  //richiamo qui la funz carte bianche
+  timerCardWhite();
 
   //richiamo qui la funz di fine gioco
   endGameAction(userNumbers);
 
   return userNumbers;
 
+}
+
+//timer carte nere
+function timerCardBlack(){
+
+    for(let i = 0; i< cardContainer.length; i++){
+      cardContainer[i].classList.add('black');
+    }
+
+}
+
+// carte bianche
+function timerCardWhite(){
+
+  for(let i = 0; i< cardContainer.length; i++){
+    
+    cardContainer[i].classList.remove('black');
+    
+  }
 }
 
 
@@ -126,7 +137,6 @@ function gameAreaGenerator(){
 //CARD PRINTER ---------------------
 function cardPrinter(elementHtml){
   let randomN;
-  let cardElement;
 
   //richiamo qui la funz genera num random
   randomN = uniqueRandomNum( LIMIT, MAX );
@@ -142,7 +152,8 @@ function cardPrinter(elementHtml){
     
   }
 
-  setTimeout(timerPrompt, 5000);
+  setTimeout(timerCardBlack, 5000);
+  setTimeout(timerPrompt, 6000);
   console.log('array card',cardContainer);
   
 }

@@ -58,6 +58,10 @@
   display: none;
 }
 
+.black{
+  background-color: black;
+}
+
 .in-evidence{
   background-color: aquamarine;
 }
