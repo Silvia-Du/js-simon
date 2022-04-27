@@ -211,6 +211,8 @@ function cardGenerator(elementHtml){
 
     }else{
       layOver.innerHTML = `<h3>bravo hai indovinato tutte le carte!</h3> `;
+      buttonStart.classList.remove('hide');
+      buttonStart.innerText = 'NUOVA PARTITA'
     }
     
   //  console.log(buttonNewGame, 'bottone!');
