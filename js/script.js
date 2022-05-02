@@ -24,10 +24,18 @@ const MAX = 15;
 let randomNumContainer =[];
 let userNumbers = [];
 let cardElement;
-let cardID;
 
-layOverGenerator();
+//generatore di numeri random
+/**
+ * Genera un numero da un min a un max randomicamente
+ * @param {num} min 
+ * @param {num} max 
+ * @returns 
+ */
+const randomNum = (min, max) => Math.floor(Math.random() * (max - min +1) + min);
 
+//richiamo qui funz Rule
+getRulelayover();
 
 buttonStart.addEventListener('click', initGame);
 
@@ -41,6 +49,53 @@ function initGame(){
   buttonStart.classList.add('hide');
   //richiamo qui il Game area Generator
   gameAreaGenerator();
+}
+
+
+//GAME AREA GENERATOR
+function gameAreaGenerator(){
+
+  const gameArea = document.createElement('div');
+  gameArea.className = 'game-area';
+  container.append(gameArea);
+
+  //richiamo qui il card Generator
+  cardPrinter(gameArea);
+ 
+  return gameArea;
+
+}
+
+//CARD PRINTER ----
+function cardPrinter(elementHtml){
+  let randomN;
+
+  //richiamo qui la funz genera num random
+  randomN = uniqueRandomNum( LIMIT, MAX );
+  
+  for( let i = 0; i< randomN.length ; i++ ){
+
+    //richiamo qui la funz crea card
+    cardElement = cardGenerator(elementHtml);
+    cardElement.innerHTML = `<span>${randomN[i]}</span>`;
+  }
+
+  //richiamo qui funzioni con timer x prompt e card-Cover
+  setTimeout(timerCardBlack, 5000);
+  setTimeout(timerPrompt, 6000);
+  console.log('array card',cardContainer);
+  
+}
+
+
+//CARD GENERATOR
+function cardGenerator(elementHtml){
+
+  const card = document.createElement('div');
+  card.className = 'card';
+  elementHtml.append(card);
+
+  return card;
 }
 
 
@@ -82,9 +137,11 @@ function timerCardBlack(){
 
     for(let i = 0; i< cardContainer.length; i++){
       cardContainer[i].classList.add('black');
-    }
+    }  
 
 }
+
+
 
 // carte bianche
 function timerCardWhite(){
@@ -101,80 +158,28 @@ function timerCardWhite(){
 function  endGameAction(userNumbers){
 
   let counter = 0;
-
   for( let i = 0; i< randomNumContainer.length; i++ ){
 
     if(userNumbers.includes(randomNumContainer[i])){
       counter++;
-      console.log('counter', counter);
-      //
-      //
-      //
+
+      for(let ix= 0; ix< cardContainer.length; ix++){
+
+        if(parseInt(cardContainer[ix].innerText)=== randomNumContainer[i]){
+          cardContainer[ix].classList.add('azure');
+        }  
+      }
     }
     
   }
-  //richiamo qui la funzione che cìgenera il layover di fine
-  creaLayover( counter);
 
-}
+  for(let i = 0; i< cardContainer.length; i++){
 
-
-
-//GAME AREA GENERATOR
-function gameAreaGenerator(){
-
-  const gameArea = document.createElement('div');
-  gameArea.className = 'game-area';
-  container.append(gameArea);
-
-  //richiamo qui il card Generator
-  cardPrinter(gameArea);
- 
-  return gameArea;
-
-}
-
-//CARD PRINTER ---------------------
-function cardPrinter(elementHtml){
-  let randomN;
-
-  //richiamo qui la funz genera num random
-  randomN = uniqueRandomNum( LIMIT, MAX );
-  
-  for( let i = 0; i< randomN.length ; i++ ){
-
-    //richiamo qui la funz crea card
-    cardElement = cardGenerator(elementHtml);
-
-    cardElement.innerHTML = `<span>${randomN[i]}</span>`;
-    cardID = parseInt(cardElement.innerText);
-    console.log(cardID, 'span della card');
-    
   }
-
-  setTimeout(timerCardBlack, 5000);
-  setTimeout(timerPrompt, 6000);
-  console.log('array card',cardContainer);
-  
+  //richiamo qui la funzione che genera il layover di fine
+  getLayoverEndGame( counter);
 }
 
-
-//CARD GENERATOR
-function cardGenerator(elementHtml){
-
-  const card = document.createElement('div');
-  card.className = 'card';
-  elementHtml.append(card);
-
-  return card;
-}
-
-
-//generatore di numeri random
-
-  function randomNum( min , max ){
-    return Math.floor(Math.random() * (max - min +1) + min);
-  }
 
 //genera numero univoco
   function uniqueRandomNum( LIMIT, MAX ){
@@ -194,17 +199,20 @@ function cardGenerator(elementHtml){
           selected = estractNumber;
         }
       }
-    
     }
     console.log('numeri random',randomNumContainer);
-
     return randomNumContainer;
   
   }
 
 
-  //funzioe crea layover
-  function creaLayover( parametroN ){
+  //Crea Layover di fine partita
+  /**
+   * genera il layover che contiene il messagio di fine partia con la vincita o in parametroN di carte indovinate
+   * @param {num} parametroN 
+   * @returns 
+   */
+  function getLayoverEndGame( parametroN ){
 
     const layOver = document.createElement('div');
     layOver.className = 'output-area';
@@ -225,14 +233,14 @@ function cardGenerator(elementHtml){
       buttonStart.classList.remove('hide');
       buttonStart.innerText = 'NUOVA PARTITA'
     }
-    
-  //  console.log(buttonNewGame, 'bottone!');
-
     return layOver;
   }
 
-
-  function layOverGenerator(){
+  //GAME RULES
+  /**
+   * genera un layover all'apertura della pagina che contiene le regole e poi scompare.
+   */
+  function getRulelayover(){
 
     const rule = document.createElement('div');
     rule.className = 'layover_game-rule';
